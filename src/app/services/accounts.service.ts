@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {AccountDetails} from "../model/account.model";
+import {AuthService} from "./auth.service";
 
 @Injectable({
   providedIn: 'root'
@@ -10,9 +11,10 @@ export class AccountsService {
 
   backendHost = 'http://localhost:8085';
 
-  constructor(private http : HttpClient) { }
+  constructor(private http : HttpClient,private authService:AuthService) { }
 
   public getAccount(accountId: string, page: number, size: number):Observable<AccountDetails> {
+    console.log("getAccount",this.authService.isAutheticated);
     return this.http.get<AccountDetails>(this.backendHost+`/accounts/${accountId}/pageOperations?page=${page}&size=${size}`);
   }
   public debitAccount(accountId: string, amount: number, description: string):Observable<AccountDetails> {

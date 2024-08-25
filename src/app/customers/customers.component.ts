@@ -1,9 +1,10 @@
 import {Component, OnInit} from '@angular/core';
-import {HttpClient} from "@angular/common/http";
 import {CustomerService} from "../services/customer.service";
 import {Customer} from "../model/customer.model";
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {Router} from "@angular/router";
+import {AuthService} from "../services/auth.service";
+
 
 @Component({
   selector: 'app-customers',
@@ -15,11 +16,11 @@ export class CustomersComponent implements OnInit{
   customers : Array<Customer> = [];
   searchFormGroup! : FormGroup
 
-  constructor(private customerService : CustomerService,private formBuilder: FormBuilder,private router : Router) {
+  constructor(private customerService : CustomerService,private formBuilder: FormBuilder,private router : Router,private authService:AuthService) {
   }
 
   ngOnInit(): void {
-
+    console.log("from OnInit Customer",this.authService.isAutheticated);
     this.customerService.getCustomers().subscribe({
       next: (data ) => {
         this.customers = data;

@@ -3,6 +3,7 @@ import {FormBuilder, FormGroup} from "@angular/forms";
 import {AccountsService} from "../services/accounts.service";
 import {catchError, Observable, throwError} from "rxjs";
 import {AccountDetails} from "../model/account.model";
+import {AuthService} from "../services/auth.service";
 
 @Component({
   selector: 'app-accounts',
@@ -18,7 +19,7 @@ export class AccountsComponent  implements OnInit{
   accountObservable$! : Observable<AccountDetails>; // $ is a convention to indicate that accountObservable is an Observable
   errorMessage! : string ;
 
-  constructor(private formBuilder: FormBuilder,private accountService:AccountsService) { }
+  constructor(private formBuilder: FormBuilder,private accountService:AccountsService,public authService:AuthService) { }
 
   ngOnInit(): void {
     this.accountFormGroup = this.formBuilder.group({

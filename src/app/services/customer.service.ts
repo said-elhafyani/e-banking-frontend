@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {Customer} from "../model/customer.model";
+import {AuthService} from "./auth.service";
 
 // services declare in providers in app.module.ts but her we use @Injectable to declare service and provide in root level
 
@@ -10,8 +11,9 @@ import {Customer} from "../model/customer.model";
 })
 export class CustomerService {
 
+
   backendHost = 'http://localhost:8085';
-  constructor(private http:HttpClient) { }
+  constructor(private http:HttpClient,private authService : AuthService) { }
 
   public getCustomers(): Observable<Array<Customer>>{
     return this.http.get<Array<Customer>>(this.backendHost+'/customers'); // return observable of customers
@@ -28,4 +30,6 @@ export class CustomerService {
   public deleteCustomer(id: number): Observable<any>{
     return this.http.delete(this.backendHost+'/customers/'+id); // return observable of customer
   }
+
+
 }
